@@ -4,11 +4,11 @@ import Image from "next/image";
 const About = () => {
   return (
     <div className="mt-14 flex w-full flex-col gap-10">
-      <span className="px-3 text-xl font-bold xl:text-3xl xl:px-6">
+      <span className="px-3 text-xl font-bold xl:px-6 xl:text-3xl">
         You prepare the food we handle the rest.
       </span>
       <div className="relative flex h-[30rem] w-full items-center justify-center">
-        <Image fill src={AboutImg} objectFit="cover" alt="About Image" />
+        <Image fill src={AboutImg} className="object-cover" alt="About Image" />
       </div>
 
       <div className="z-20 mx-auto -mt-48 flex max-w-[400px] items-center justify-center py-4 md:max-w-[700px] md:justify-start lg:w-full">
@@ -28,13 +28,11 @@ const About = () => {
 
           <span>Interested? Let's start our partnership today!</span>
 
-          <button className="max-w-fit hover:brightness-95 rounded bg-primary-foreground px-5 py-3 font-semibold text-white">
+          <button className="max-w-fit rounded bg-primary-foreground px-5 py-3 font-semibold text-white hover:brightness-95">
             Get Started
           </button>
         </div>
       </div>
-
-
     </div>
   );
 };

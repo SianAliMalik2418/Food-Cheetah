@@ -8,7 +8,7 @@ const HeroSection = () => {
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between bg-gray-100 py-10">
         <div className="title flex-1 gap-4 px-3 py-3 lg:flex lg:flex-col xl:px-10">
-          <span className="max-w-full px-3 text-xl font-bold text-secondary lg:text-3xl xl:text-4xl">
+          <span className="max-w-full text-xl font-bold text-secondary lg:px-3 lg:text-3xl xl:text-4xl">
             It's the food and groceries you love, delivered
           </span>
           <div className="z-10 mt-5 hidden lg:block">
