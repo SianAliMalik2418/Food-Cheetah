@@ -25,7 +25,6 @@ export function LoginForm() {
   const { register, formState: errors, handleSubmit } = useForm();
 
   const handleLogin = handleSubmit(async (data) => {
-    console.log(data);
     try {
       setIsLoading(true);
       const resp = await signIn("credentials", {
@@ -33,7 +32,6 @@ export function LoginForm() {
         email: data.email,
         password: data.password,
       });
-      console.log(resp);
       setIsLoading(false);
       toast.success("Logged in successfully 🎊");
       router.replace("/");

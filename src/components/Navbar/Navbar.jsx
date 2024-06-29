@@ -12,15 +12,16 @@ import DropDownProfileButton from "./DropDownProfileButton";
 
 const Navbar = async () => {
   const session = await getServerSession(authOptions);
-  console.log(session)
 
   const firstName = session?.user?.name?.split(" ")[0];
-
 
   return (
     <div className="mx-auto flex h-20 items-center justify-between bg-white px-5 py-2 shadow-lg md:container">
       {session ? (
         <>
+          <div className="block flex-1 lg:hidden">
+            <ProfileButton />
+          </div>
           <Link href={"/"}>
             <div className="flex flex-1 items-center justify-center gap-2 lg:flex-none lg:gap-4">
               <div className="relative h-10 w-10 rounded-full lg:h-14 lg:w-14">
@@ -38,10 +39,15 @@ const Navbar = async () => {
             </div>
           </Link>
 
-          <div></div>
+          <div className="hidden items-center justify-center gap-8 lg:flex">
+            <DropDownProfileButton firstName={firstName} />
+            <IoBagHandleOutline
+              className="text-primary-foreground lg:text-2xl"
+              cursor={"pointer"}
+            />
+          </div>
 
-          <div className="flex items-center justify-center gap-8">
-            <DropDownProfileButton firstName = {firstName} />
+          <div className="flex flex-1 items-end justify-end  lg:hidden">
             <IoBagHandleOutline
               className="text-primary-foreground lg:text-2xl"
               cursor={"pointer"}

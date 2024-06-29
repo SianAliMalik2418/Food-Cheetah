@@ -40,7 +40,6 @@ export const authOptions = {
           }
 
           const isPasswordMatch = bcrypt.compareSync(password, isUser.password);
-          console.log(isPasswordMatch);
 
           if (!isPasswordMatch) {
             // return NextResponse.json({message : "Invalid Credentials!"} , {status : 401})
@@ -64,10 +63,46 @@ export const authOptions = {
   },
 
   callbacks: {
+    async signIn({ user, account }) {
+      if (account.provider === "google" || account.provider === "github") {
+        const { name, email } = user;
+
+        if (!name || !email) {
+          return null;
+        }
+
+        try {
+          await connectDB();
+          const isUser = await UserModel.findOne({ email });
+
+          if (isUser) {
+            return user;
+          }
+
+          const newUser = new UserModel({
+            username: name,
+            email,
+          });
+
+          const resp = await newUser.save();
+          user._id = resp._id;
+
+          if (resp.status === 200 || resp.status === 201) {
+            return user;
+          }
+        } catch (error) {
+          console.log(error);
+          return null;
+        }
+      }
+
+      return user;
+    },
+
     async jwt({ token, user }) {
       if (user) {
         token.id = user._id;
-        token.username = user.username;
+        token.username = user.username || user.name;
         token.email = user.email;
       }
       return token;

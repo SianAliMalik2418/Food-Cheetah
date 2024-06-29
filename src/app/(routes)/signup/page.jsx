@@ -1,6 +1,14 @@
 import { SignUpForm } from "@/components/authComponents/SignUpForm";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 const SignUpPage = () => {
+  const session = getServerSession();
+
+  if (session) {
+    return redirect("/");
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center">
       <SignUpForm />

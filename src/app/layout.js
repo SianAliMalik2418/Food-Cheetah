@@ -4,10 +4,11 @@ import Head from "next/head";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { Toaster } from "../components/ui/sonner";
+import SessionWrapper from "@/components/authComponents/SessionWrapper";
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: [ "300", "400", "500", "600", "700" , "900"],
+  weight: ["300", "400", "500", "600", "700", "900"],
 });
 
 export const metadata = {
@@ -22,11 +23,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <Navbar />
-        <div>{children}</div>
-        <Toaster richColors/>
-        <Footer />
-        
+        <SessionWrapper>
+          <Navbar />
+          <div>{children}</div>
+          <Toaster richColors />
+          <Footer />
+        </SessionWrapper>
       </body>
     </html>
   );

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const HeroSectionForm = () => {
   return (
-    <form className="flex w-full flex-col gap-6 px-3">
+    <form className="flex w-full flex-col gap-7 px-3">
       <div className="flex items-center gap-2 mt-8 lg:mt-0">
         <input
           type="text"
@@ -13,6 +13,13 @@ const HeroSectionForm = () => {
           Find
         </button>
       </div>
+
+      <div className=" flex w-full items-center justify-between">
+        <span className="h-1 flex-1 bg-gray-200"></span>
+        <span className="flex-1 text-center">or</span>
+        <span className="h-1 flex-1 bg-gray-200"></span>
+      </div>
+
       <Link href={"/restaurants"}>
         <button
           type="button"

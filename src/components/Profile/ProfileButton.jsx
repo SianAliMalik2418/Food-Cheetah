@@ -16,7 +16,7 @@ import { LogoutButton } from "../authComponents/AuthButtons";
 const ProfileButton = ({ className }) => {
   return (
     <>
-      <Sheet>
+      <Sheet className = "bg-red-500">
         <SheetTrigger>
           <FaRegUser
             className={`border-none text-primary-foreground lg:hidden ${className}`}
