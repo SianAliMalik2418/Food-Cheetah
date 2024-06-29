@@ -63,7 +63,7 @@ const LoginModal = ({ text, stylingClasses }) => {
       <DrawerContent className="pb-4">
         <DrawerHeader className="text-left">
           <DrawerClose asChild>
-            <div className="flex w-full items-end justify-end mb-3">
+            <div className="mb-3 flex w-full items-end justify-end">
               <IoIosCloseCircleOutline
                 size={30}
                 className="rounded-full shadow-lg"
@@ -73,6 +73,7 @@ const LoginModal = ({ text, stylingClasses }) => {
           <DrawerTitle className="mb-2 text-3xl">Welcome!</DrawerTitle>
           <DrawerDescription>Sign up or log in to continue</DrawerDescription>
         </DrawerHeader>
+
         <AuthButtonsContainer />
       </DrawerContent>
     </Drawer>
