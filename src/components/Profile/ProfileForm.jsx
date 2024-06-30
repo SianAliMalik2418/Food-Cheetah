@@ -20,7 +20,7 @@ const ProfileForm = () => {
     try {
       const resp = await axios.put(
         `/api/user/updateUser/${session?.user?.id}`,
-        data
+        data,
       );
       toast.success("Profile updated successfully 🎊");
     } catch (error) {
@@ -48,7 +48,7 @@ const ProfileForm = () => {
     if (status === "authenticated") {
       handleGetUser();
     }
-  }, [session, status]);
+  }, [session, status, handleGetUser]);
 
   if (status === "loading") return <p>Loading...</p>;
   if (status === "unauthenticated") return <p>Please log in</p>;

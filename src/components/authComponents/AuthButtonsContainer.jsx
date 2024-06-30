@@ -5,7 +5,7 @@ import {
   SignUpButton,
 } from "./AuthButtons";
 
-const AuthButtonsContainer = () => {
+const AuthButtonsContainer = ({ closeDrawer }) => {
   return (
     <div
       className={`my-5 flex flex-col items-center justify-center gap-3 px-4`}
@@ -19,8 +19,8 @@ const AuthButtonsContainer = () => {
         <span className="h-1 flex-1 bg-gray-200"></span>
       </div>
 
-      <LoginButton />
-      <SignUpButton />
+      <LoginButton closeDrawer={closeDrawer} />
+      <SignUpButton closeDrawer={closeDrawer} />
     </div>
   );
 };

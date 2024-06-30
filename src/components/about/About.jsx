@@ -21,12 +21,12 @@ const About = () => {
             and groceries? So would we!
           </span>
           <span>
-            It's simple: we list your menu and product lists online, help you
-            process orders, pick them up, and deliver them to hungry Cheetahs –
+            It&apos;s simple: we list your menu and product lists online, help you
+            process orders, pick them up, and deliver them to hungry Cheetahs -
             in a heartbeat!
           </span>
 
-          <span>Interested? Let's start our partnership today!</span>
+          <span>Interested? Let&apos;s start our partnership today!</span>
 
           <button className="max-w-fit rounded bg-primary-foreground px-5 py-3 font-semibold text-white hover:brightness-95">
             Get Started

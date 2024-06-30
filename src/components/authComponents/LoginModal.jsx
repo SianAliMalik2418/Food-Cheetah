@@ -47,7 +47,7 @@ const LoginModal = ({ text, stylingClasses }) => {
               Sign up or log in to continue
             </DialogDescription>
           </DialogHeader>
-          <AuthButtonsContainer />
+            <AuthButtonsContainer closeDrawer = {() => setOpen(false)} />
         </DialogContent>
       </Dialog>
     );
@@ -74,7 +74,9 @@ const LoginModal = ({ text, stylingClasses }) => {
           <DrawerDescription>Sign up or log in to continue</DrawerDescription>
         </DrawerHeader>
 
-        <AuthButtonsContainer />
+        <DrawerClose>
+          <AuthButtonsContainer closeDrawer = {() => setOpen(false)} />
+        </DrawerClose>
       </DrawerContent>
     </Drawer>
   );
