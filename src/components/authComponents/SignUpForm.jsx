@@ -28,13 +28,13 @@ export function SignUpForm() {
   } = useForm();
 
   const handleSignUp = handleSubmit(async (data) => {
-
     try {
       setIsLoading(true);
 
       const resp = await axios.post("api/auth/signup", data);
       setIsLoading(false);
       toast.success("User created successfully 🎊");
+      router.push("/login");
     } catch (error) {
       console.log(error);
       setIsLoading(false);

@@ -6,14 +6,13 @@ import LoginModal from "@/components/authComponents/LoginModal";
 import { FaRegUser } from "react-icons/fa";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import ProfileButton from "../Profile/ProfileButton";
 import DropDownProfileButton from "./DropDownProfileButton";
 
 const Navbar = async () => {
   const session = await getServerSession(authOptions);
 
-  const firstName = session?.user?.name?.split(" ")[0];
+  const email = session?.user?.email
 
   return (
     <div className="mx-auto flex h-20 items-center justify-between bg-white px-5 py-2 shadow-lg md:container">
@@ -40,7 +39,7 @@ const Navbar = async () => {
           </Link>
 
           <div className="hidden items-center justify-center gap-8 lg:flex">
-            <DropDownProfileButton firstName={firstName} />
+            <DropDownProfileButton email={email} />
             <IoBagHandleOutline
               className="text-primary-foreground lg:text-2xl"
               cursor={"pointer"}

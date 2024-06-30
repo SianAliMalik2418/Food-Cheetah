@@ -12,14 +12,14 @@ import { FaHome, FaRegUser } from "react-icons/fa";
 import { IoRestaurantOutline } from "react-icons/io5";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
-const DropDownProfileButton = ({ firstName }) => {
+const DropDownProfileButton = ({ email }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         {" "}
         <div className="flex cursor-pointer items-center justify-center gap-1 rounded-md px-2 py-1 transition-all ease-in-out hover:bg-yellow-200">
           <FaRegUser />
-          <span className="ml-1 mr-2">{firstName}</span>
+          <span className="ml-1 mr-2">{email}</span>
           <MdOutlineKeyboardArrowDown className="text-xl text-primary" />
         </div>
       </DropdownMenuTrigger>

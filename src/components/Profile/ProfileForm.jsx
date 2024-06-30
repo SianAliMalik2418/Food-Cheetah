@@ -1,54 +1,57 @@
 "use client";
+import axios from "axios";
 import { useSession } from "next-auth/react";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { toast } from "sonner";
 
 const ProfileForm = () => {
-  const { data: session } = useSession();
-  const [isDisabled, setIsDisabled] = useState(true);
-  const [defaultUsername, setDefaultUsername] = useState("");
+  const { data: session, status } = useSession();
 
   // REACT-HOOK-FORM-ELEMENTS
-  const { register, handleSubmit, formState, setValue, watch } = useForm();
+  const { register, handleSubmit, formState, setValue } = useForm();
   const { errors, isSubmitting, isDirty } = formState;
-  const username = watch("username");
 
   // FUNCS TO HANDLE PROFILE
   const handleUpdateProfile = handleSubmit(async (data) => {
     try {
       const resp = await axios.put(
-        `api/user/updateUser/${session?.user?.id}`,
-        data,
+        `/api/user/updateUser/${session?.user?.id}`,
+        data
       );
-      console.log(resp);
       toast.success("Profile updated successfully 🎊");
     } catch (error) {
       console.log(error);
-      toast.success("Error while updating Profile!");
+      toast.error("Error while updating profile!");
     }
   });
 
   const handleGetUser = async () => {
-    try {
-      const resp = await axios.get(`api/user/getUser/${session?.user?.id}`);
-      setValue("username", resp?.data?.username);
-      setValue("email", resp?.data?.email);
-      setDefaultUsername(resp?.data?.username);
-    } catch (error) {
-      console.log(error);
+    if (session?.user?.id) {
+      try {
+        const resp = await axios.get(`/api/user/getUser/${session.user.id}`);
+        setValue("username", resp?.data?.username);
+        setValue("email", resp?.data?.email);
+        setValue("city", resp?.data?.city);
+        setValue("adress", resp?.data?.adress);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   // LOAD INITIAL USER DETAILS ON FIRST RENDER
   useEffect(() => {
-    handleGetUser();
-  }, []);
+    if (status === "authenticated") {
+      handleGetUser();
+    }
+  }, [session, status]);
+
+  if (status === "loading") return <p>Loading...</p>;
+  if (status === "unauthenticated") return <p>Please log in</p>;
 
   return (
     <form
@@ -71,10 +74,10 @@ const ProfileForm = () => {
         <div className="grid w-full max-w-sm items-center gap-2">
           <Label htmlFor="Username">Username</Label>
           <Input
-            type="Username"
+            type="text"
             id="Username"
             placeholder="Username"
-            {...register("username", { required: "This Field is required" })}
+            {...register("username", { required: "This field is required" })}
           />
           {errors.username && (
             <span className="px-2 text-base text-red-500">
@@ -82,16 +85,48 @@ const ProfileForm = () => {
             </span>
           )}
         </div>
+
+        <div className="flex w-full flex-col gap-5 py-2 xl:flex-row">
+          <div className="grid w-full max-w-sm flex-1 items-center gap-2">
+            <Label htmlFor="city">City</Label>
+            <Input
+              type="text"
+              id="city"
+              placeholder="City"
+              {...register("city", { required: "This field is required" })}
+            />
+            {errors.city && (
+              <span className="px-2 text-base text-red-500">
+                {errors.city.message}
+              </span>
+            )}
+          </div>
+          <div className="grid w-full max-w-sm flex-1 items-center gap-2">
+            <Label htmlFor="adress">Address Line 1</Label>
+            <Input
+              type="text"
+              id="adress"
+              placeholder="Address"
+              {...register("adress", { required: "This field is required" })}
+            />
+            {errors.adress && (
+              <span className="px-2 text-base text-red-500">
+                {errors.adress.message}
+              </span>
+            )}
+          </div>
+        </div>
       </div>
 
       <Button
         type="submit"
         className="mt-8 bg-primary-foreground px-10 text-white hover:bg-primary hover:brightness-90"
-        disabled={username == defaultUsername || isSubmitting}
+        disabled={!isDirty || isSubmitting}
       >
-        {isSubmitting ? (<>Saving</>) : (<>Save</>)}
+        {isSubmitting ? <>Saving</> : <>Save</>}
       </Button>
     </form>
   );
 };
+
 export default ProfileForm;

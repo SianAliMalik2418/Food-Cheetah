@@ -19,11 +19,13 @@ const RestaurantsPage = () => {
         <Filters />
       </div>
 
-      <div className="w-[20%]">
-        <Filters />
+      <div className="hidden w-[20%]  xl:block">
+        <div className="sticky top-0 h-[500px] overflow-y-auto">
+          <Filters />
+        </div>
       </div>
       <div className="mt-10 flex flex-col gap-3 px-3 py-2 xl:mt-0 xl:max-w-[80%] xl:px-7">
-        <div className="group flex items-center gap-1 rounded-3xl bg-[#F7F7F7] px-4 py-4 text-3xl transition-all hover:shadow-[0px_6px_12px_4px_#00000024]">
+        <div className="group hidden items-center gap-1 rounded-3xl bg-[#F7F7F7] px-4 py-4 text-3xl transition-all hover:shadow-[0px_6px_12px_4px_#00000024] xl:flex">
           <IoIosSearch className="text-secondary transition-colors group-hover:text-primary" />
           <Input
             placeholder="Search for restaurants, cuisnines"

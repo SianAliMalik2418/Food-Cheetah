@@ -1,4 +1,5 @@
 import Image from "next/image";
+// import heroImg from "@/../../public/NEW_CHEETAH_EATING.png";
 import heroImg from "@/../../public/Cheetah eating.jpeg";
 import HeroSectionForm from "./HeroSectionForm";
 import About from "../about/About";
@@ -22,7 +23,7 @@ const HeroSection = () => {
             fill
             priority
             className="object-contain object-center"
-             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
       </div>

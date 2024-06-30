@@ -5,14 +5,14 @@ import { NextResponse } from "next/server";
 export const PUT = async (req, { params }) => {
   const { userId } = params;
   const reqBody = await req.json();
-  const { username, email } = reqBody;
+  const { username, email, city , adress } = reqBody;
 
   try {
     await connectDB();
 
     const updatedUser = await UserModel.findByIdAndUpdate(
       userId,
-      { username, email },
+      { username, email , city , adress },
       { new: true },
     ).select("-password");
 

@@ -20,10 +20,6 @@ const userSchema = mongoose.Schema(
       type: String,
     },
 
-    country: {
-      type: String,
-    },
-
     adress: {
       type: String,
     },
