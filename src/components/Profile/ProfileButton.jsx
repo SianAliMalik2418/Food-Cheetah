@@ -1,5 +1,6 @@
 import { FaRegUser, FaHome } from "react-icons/fa";
 import { IoRestaurantOutline } from "react-icons/io5";
+import { LuChefHat } from "react-icons/lu";
 
 import {
   Sheet,
@@ -47,6 +48,12 @@ const ProfileButton = ({ className }) => {
                 <span className="flex items-center gap-3">
                   <IoRestaurantOutline />
                   <span>Restaurants</span>
+                </span>
+              </Link>
+              <Link href={"/myRestaurant"}>
+                <span className="flex items-center gap-3">
+                  <LuChefHat />
+                  <span>My Restaurant</span>
                 </span>
               </Link>
               <LogoutButton />

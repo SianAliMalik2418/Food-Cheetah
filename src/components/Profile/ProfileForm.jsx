@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { toast } from "sonner";
+import ButtonLoading from "../ui/ButtonLoading";
 
 const ProfileForm = () => {
   const { data: session, status } = useSession();
@@ -48,7 +49,7 @@ const ProfileForm = () => {
     if (status === "authenticated") {
       handleGetUser();
     }
-  }, [session, status, handleGetUser]);
+  }, [session, handleGetUser]);
 
   if (status === "loading") return <p>Loading...</p>;
   if (status === "unauthenticated") return <p>Please log in</p>;
@@ -123,7 +124,8 @@ const ProfileForm = () => {
         className="mt-8 bg-primary-foreground px-10 text-white hover:bg-primary hover:brightness-90"
         disabled={!isDirty || isSubmitting}
       >
-        {isSubmitting ? <>Saving</> : <>Save</>}
+        {isSubmitting ? <ButtonLoading /> : <>Save</>}
+
       </Button>
     </form>
   );

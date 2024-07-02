@@ -1,19 +1,22 @@
 export const cuisines = [
-    "Pizza",
-    "BBQ",
-    "Café",
-    "Sushi",
-    "Burger",
-    "Steakhouse",
-    "Seafood",
-    "Bakery",
-    "Mexican",
-    "Drinks",
-  ];
+  "Pizza",
+  "BBQ",
+  "Desi",
+  "Café",
+  "Sushi",
+  "Burger",
+  "Noodles",
+  "Steakhouse",
+  "Seafood",
+  "Bakery",
+  "Mexican",
+  "Chineese",
+  "Organic",
+  "Healthy Food",
+];
 
 export const sortOptions = [
   "Relevance",
   "Fastest Delivery Time",
   "Delivery Price",
-  ];
-  
+];

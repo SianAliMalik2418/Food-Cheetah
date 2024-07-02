@@ -1,5 +1,5 @@
-import Filters from "@/components/Restaurant/Filters";
-import RestaurantCard from "@/components/Restaurant/RestaurantCard";
+import Filters from "@/components/Restaurant/restaurantUiComponents/Filters";
+import RestaurantCard from "@/components/Restaurant/restaurantUiComponents/RestaurantCard";
 import { Input } from "@/components/ui/input";
 import { IoIosSearch } from "react-icons/io";
 

@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
+import ButtonLoading from "../ui/ButtonLoading";
 
 export function SignUpForm() {
   const router = useRouter();
@@ -98,7 +99,13 @@ export function SignUpForm() {
               disabled={isLoading}
               className="mt-3 w-full text-white hover:bg-primary hover:brightness-95"
             >
-              {isLoading ? <>Loading...</> : <>Create an account</>}
+              {isLoading ? (
+                <>
+                  <ButtonLoading />
+                </>
+              ) : (
+                <>Create an account</>
+              )}
             </Button>
           </div>
         </form>

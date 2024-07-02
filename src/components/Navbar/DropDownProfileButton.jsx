@@ -2,14 +2,14 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { LogoutButton } from "../authComponents/AuthButtons";
 import { FaHome, FaRegUser } from "react-icons/fa";
 import { IoRestaurantOutline } from "react-icons/io5";
+import { LuChefHat } from "react-icons/lu";
+
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const DropDownProfileButton = ({ email }) => {
@@ -47,6 +47,15 @@ const DropDownProfileButton = ({ email }) => {
               <span className="flex items-center gap-3">
                 <IoRestaurantOutline />
                 <span>Restaurants</span>
+              </span>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            {" "}
+            <Link href={"/myRestaurant"}>
+              <span className="flex items-center gap-3">
+                <LuChefHat />
+                <span>My Restaurant</span>
               </span>
             </Link>
           </DropdownMenuItem>

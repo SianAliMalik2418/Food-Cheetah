@@ -17,12 +17,13 @@ import { toast } from "sonner";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import ButtonLoading from "../ui/ButtonLoading";
 
 export function LoginForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  const { register, formState: errors, handleSubmit } = useForm();
+  const { register, formState: {errors}, handleSubmit } = useForm();
 
   const handleLogin = handleSubmit(async (data) => {
     try {
@@ -32,10 +33,19 @@ export function LoginForm() {
         email: data.email,
         password: data.password,
       });
-      setIsLoading(false);
-      toast.success("Logged in successfully 🎊");
-      router.replace("/");
-      router.refresh()
+      console.log(resp);
+
+      if (resp.status === 401) {
+        setIsLoading(false);
+        return toast.error("Invalid Credentials!");
+      }
+
+      if (resp.status === 200) {
+        setIsLoading(false);
+        toast.success("Logged in successfully 🎊");
+        router.replace("/");
+        router.refresh();
+      }
     } catch (error) {
       setIsLoading(false);
       console.log(error);
@@ -93,7 +103,7 @@ export function LoginForm() {
               className="mt-3 w-full text-white hover:bg-primary hover:brightness-95"
               disabled={isLoading}
             >
-              {isLoading ? <>Loading...</> : <>Login</>}
+              {isLoading ? <><ButtonLoading/></> : <>Login</>}
             </Button>
           </div>
         </form>

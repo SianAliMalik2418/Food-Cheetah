@@ -10,7 +10,6 @@
     --primary: 45, 100%, 50%;
     --primary-foreground: 45, 96%, 51%;
 
-
     --secondary: 0, 0%, 20%;
     --secondary-foreground: 240 5.9% 10%;
 
@@ -65,6 +64,10 @@
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
   }
+}
+
+.cloudinary-widget-open {
+  overflow: hidden;
 }
 
 @layer base {
