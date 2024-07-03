@@ -6,15 +6,14 @@ import CuisiniesSection from "./CuisiniesSection";
 import MenuSection from "./MenuSection";
 import ImageSection from "./ImageSection";
 import axios from "axios";
-import { useSession } from "next-auth/react";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import ButtonLoading from "@/components/ui/ButtonLoading";
+import { useAuthContext } from "@/context/AuthContextProvider";
 
 const CreateRestaurantForm = () => {
-  const session = useSession();
-  const userId = session?.data?.user?.id;
-
+  const { userId } = useAuthContext();
+  const [restaurantData, setRestaurantData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm({
@@ -28,18 +27,36 @@ const CreateRestaurantForm = () => {
     data.userId = userId;
     try {
       setIsLoading(true);
-      const resp = await axios.post("api/restaurant/my-restaurant", data);
+      const resp = await axios.post("api/restaurant/my-restaurant/create-my-restaurant", data);
       console.log(resp);
       toast.success("Restaurant Created 🎊");
       setIsLoading(false);
-      reset()
+      reset();
     } catch (error) {
       console.log(error);
       setIsLoading(false);
-
       toast.error("Err while creating restaurant!");
     }
   });
+
+  const handleGetMyRestaurant = useCallback(async () => {
+    try {
+      const resp = await axios(`api/restaurant/my-restaurant/get-my-restaurant?userId=${userId}`);
+      setRestaurantData(resp?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [userId]);
+
+  useEffect(() => {
+    handleGetMyRestaurant();
+  }, [handleGetMyRestaurant]);
+
+  useEffect(() => {
+    if (restaurantData) {
+      reset(restaurantData);
+    }
+  }, [restaurantData, reset]);
 
   return (
     <div className="mt-10 min-h-full w-full bg-[#fafafa] px-2 py-5 sm:px-10">

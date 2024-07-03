@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { Toaster } from "../components/ui/sonner";
 import SessionWrapper from "@/components/authComponents/SessionWrapper";
+import AuthContextProvider from "@/context/AuthContextProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -23,10 +24,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={poppins.className}>
         <SessionWrapper>
-          <Navbar />
-          <div>{children}</div>
-          <Toaster richColors />
-          <Footer />
+          <AuthContextProvider>
+            <Navbar />
+            <div>{children}</div>
+            <Toaster richColors />
+            <Footer />
+          </AuthContextProvider>
         </SessionWrapper>
       </body>
     </html>

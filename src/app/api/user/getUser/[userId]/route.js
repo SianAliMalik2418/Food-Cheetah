@@ -8,7 +8,6 @@ export const GET = async (req, { params }) => {
   try {
     await connectDB();
 
-    console.log(userId);
     const user = await UserModel.findById(userId);
 
     if (!user) {

@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 export const POST = async (req) => {
   const reqBody = await req.json();
 
-  console.log(reqBody);
 
   try {
 

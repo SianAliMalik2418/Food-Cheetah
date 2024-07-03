@@ -5,21 +5,27 @@ import { Input } from "@/components/ui/input";
 import { useFormContext } from "react-hook-form";
 import { IoImageOutline } from "react-icons/io5";
 import { CldUploadWidget } from "next-cloudinary";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const MenuItem = ({ menuItemNo, remove, totalItems }) => {
   const [menuItemImgUrl, setMenuItemImgUrl] = useState("");
-  const { register, formState, setValue } = useFormContext();
+  const { register, formState, setValue, watch } = useFormContext();
   const { errors } = formState;
 
+  const existingMenuItemImgUrl = watch(`menuItems.${menuItemNo}.menuItemImage`);
   const handleImageUpload = (url) => {
-    console.log(url);
     setMenuItemImgUrl(url);
     setValue(`menuItems.${menuItemNo}.menuItemImage`, url, {
       shouldValidate: true,
     });
   };
+
+  useEffect(() => {
+    if (existingMenuItemImgUrl) {
+      setMenuItemImgUrl(existingMenuItemImgUrl);
+    }
+  }, [existingMenuItemImgUrl]);
 
   return (
     <>

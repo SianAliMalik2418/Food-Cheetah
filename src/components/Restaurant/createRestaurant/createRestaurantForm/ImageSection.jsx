@@ -2,7 +2,7 @@
 
 import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { BiImageAdd } from "react-icons/bi";
 
@@ -11,9 +11,18 @@ const ImageSection = () => {
     register,
     setValue,
     formState: { errors },
+    watch,
   } = useFormContext();
 
+  const existingImageUrl = watch("coverImg");
+
   const [coverImage, setCoverImage] = useState("");
+
+  useEffect(() => {
+    if (existingImageUrl) {
+      setCoverImage(existingImageUrl);
+    }
+  }, [existingImageUrl]);
 
   const handleFileUpload = (url) => {
     setCoverImage(url);

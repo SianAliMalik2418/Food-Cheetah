@@ -33,7 +33,6 @@ export function LoginForm() {
         email: data.email,
         password: data.password,
       });
-      console.log(resp);
 
       if (resp.status === 401) {
         setIsLoading(false);
