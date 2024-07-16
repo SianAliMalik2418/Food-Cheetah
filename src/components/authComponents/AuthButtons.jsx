@@ -61,10 +61,10 @@ export const SignUpButton = ({ closeDrawer }) => {
   );
 };
 
-export const LogoutButton = () => {
+export const LogoutButton = ({className}) => {
   return (
     <span
-      className="flex cursor-pointer items-center gap-3"
+      className={`flex cursor-pointer items-center gap-3 ${className}`}
       onClick={() => {
         signOut();
         toast.success("Logged out!");

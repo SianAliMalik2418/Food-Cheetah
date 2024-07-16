@@ -6,8 +6,7 @@ import {
   Sheet,
   SheetContent,
   SheetDescription,
-  SheetFooter,
-  SheetHeader,
+  SheetClose,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
@@ -15,9 +14,32 @@ import Link from "next/link";
 import { LogoutButton } from "../authComponents/AuthButtons";
 
 const ProfileButton = ({ className }) => {
+  const navLinks = [
+    {
+      label: "Home",
+      icon: <FaHome />,
+      href: "/",
+    },
+    {
+      label: "Profile",
+      icon: <FaRegUser />,
+      href: "/profile",
+    },
+    {
+      label: "Restaurants",
+      icon: <IoRestaurantOutline />,
+      href: "/restaurants",
+    },
+    {
+      label: "My Restaurant",
+      icon: <LuChefHat />,
+      href: "/myRestaurant",
+    },
+  ];
+
   return (
     <>
-      <Sheet className = "bg-red-500">
+      <Sheet className="bg-red-500">
         <SheetTrigger>
           <FaRegUser
             className={`border-none text-primary-foreground lg:hidden ${className}`}
@@ -30,38 +52,21 @@ const ProfileButton = ({ className }) => {
             </SheetTitle>
           </div>
 
-          <SheetDescription>
-            <span className="mt-24 flex flex-col gap-10 text-lg">
-              <Link href={"/"}>
-                <span className="flex items-center gap-3">
-                  <FaHome />
-                  <span>Home</span>
-                </span>
-              </Link>
-              <Link href={"/profile"}>
-                <span className="flex items-center gap-3">
-                  <FaRegUser />
-                  <span>Profile</span>
-                </span>
-              </Link>
-              <Link href={"/restaurants"}>
-                <span className="flex items-center gap-3">
-                  <IoRestaurantOutline />
-                  <span>Restaurants</span>
-                </span>
-              </Link>
-              <Link href={"/myRestaurant"}>
-                <span className="flex items-center gap-3">
-                  <LuChefHat />
-                  <span>My Restaurant</span>
-                </span>
-              </Link>
-              <LogoutButton />
-            </span>
-          </SheetDescription>
+          <div className="mt-20 flex flex-col gap-10 text-xl font-semibold">
+            {navLinks.map((navLink, index) => (
+              <SheetClose asChild key={index}>
+                <Link href={navLink.href} className="flex items-center gap-3">
+                  {navLink.icon}
+                  <span>{navLink.label}</span>
+                </Link>
+              </SheetClose>
+            ))}
+          </div>
+          <SheetDescription></SheetDescription>
         </SheetContent>
       </Sheet>
     </>
   );
 };
+
 export default ProfileButton;

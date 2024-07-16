@@ -5,6 +5,8 @@ import Footer from "@/components/Footer/Footer";
 import { Toaster } from "../components/ui/sonner";
 import SessionWrapper from "@/components/authComponents/SessionWrapper";
 import AuthContextProvider from "@/context/AuthContextProvider";
+import NextTopLoader from "nextjs-toploader";
+import SearchContextProvider from "@/context/SearchContextProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -25,10 +27,13 @@ export default function RootLayout({ children }) {
       <body className={poppins.className}>
         <SessionWrapper>
           <AuthContextProvider>
-            <Navbar />
-            <div>{children}</div>
-            <Toaster richColors />
-            <Footer />
+            <SearchContextProvider>
+              <NextTopLoader color="#FFBF00" />
+              <Navbar />
+              <div>{children}</div>
+              <Toaster richColors />
+              <Footer />
+            </SearchContextProvider>
           </AuthContextProvider>
         </SessionWrapper>
       </body>

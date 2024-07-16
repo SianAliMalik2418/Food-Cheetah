@@ -15,6 +15,8 @@ const CreateRestaurantForm = () => {
   const { userId } = useAuthContext();
   const [restaurantData, setRestaurantData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isGettingRestaurantLoading, setIsGettingRestaurantLoading] =
+    useState(false);
 
   const form = useForm({
     defaultValues: {
@@ -27,7 +29,10 @@ const CreateRestaurantForm = () => {
     data.userId = userId;
     try {
       setIsLoading(true);
-      const resp = await axios.post("api/restaurant/my-restaurant/create-my-restaurant", data);
+      const resp = await axios.post(
+        "api/restaurant/my-restaurant/create-my-restaurant",
+        data,
+      );
       console.log(resp);
       toast.success("Restaurant Created 🎊");
       setIsLoading(false);
@@ -41,12 +46,37 @@ const CreateRestaurantForm = () => {
 
   const handleGetMyRestaurant = useCallback(async () => {
     try {
-      const resp = await axios(`api/restaurant/my-restaurant/get-my-restaurant?userId=${userId}`);
+      setIsGettingRestaurantLoading(true);
+      const resp = await axios(
+        `api/restaurant/my-restaurant/get-my-restaurant?userId=${userId}`,
+      );
       setRestaurantData(resp?.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsGettingRestaurantLoading(false);
     }
   }, [userId]);
+
+  const handleUpdateMyRestaurant = handleSubmit(async (data) => {
+    console.log(data);
+
+    try {
+      setIsLoading(true);
+      const response = await axios.put(
+        "api/restaurant/my-restaurant/update-my-restaurant",
+        data,
+      );
+
+      console.log(response);
+
+      toast.success(response.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  });
 
   useEffect(() => {
     handleGetMyRestaurant();
@@ -58,10 +88,26 @@ const CreateRestaurantForm = () => {
     }
   }, [restaurantData, reset]);
 
+  const isEditing = !!restaurantData;
+
+  console.log(isEditing);
+
+  if (isGettingRestaurantLoading) {
+    return (
+      <h1 className="flex h-screen w-full items-center justify-center text-4xl">
+        Loading....
+      </h1>
+    );
+  }
+
   return (
     <div className="mt-10 min-h-full w-full bg-[#fafafa] px-2 py-5 sm:px-10">
       <FormProvider {...form}>
-        <form onSubmit={handleCreateRestaurant}>
+        <form
+          onSubmit={
+            isEditing ? handleUpdateMyRestaurant : handleCreateRestaurant
+          }
+        >
           <DetailsSection />
           <CuisiniesSection />
           <MenuSection />
@@ -70,7 +116,7 @@ const CreateRestaurantForm = () => {
             <ButtonLoading className="mt-5 h-14 w-full bg-primary text-base font-semibold text-white hover:opacity-90" />
           ) : (
             <button className="mt-5 w-full bg-primary py-4 font-semibold text-white hover:opacity-90">
-              Create Your Restaurant
+              {isEditing ? "Update Restaurant" : "Create Your Restaurant"}
             </button>
           )}
         </form>
